@@ -1,7 +1,6 @@
 import React from "react";
 
 import GeneralInfo from "./components/GeneralInfo";
-import PlanDetail from "./components/PlanDetail";
 import styles from "./project-create.module.css";
 
 //antd
@@ -14,7 +13,6 @@ const ProjectCreate = () => {
     <div className={styles.container}>
       <Title level={2}>新增工程計畫</Title>
       <GeneralInfo />
-      <PlanDetail />
     </div>
   );
 };

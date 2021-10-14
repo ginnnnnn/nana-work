@@ -1,5 +1,18 @@
 import React, { useState } from "react";
-import { Form, Input, Select, DatePicker, InputNumber, Divider } from "antd";
+import { useHistory } from "react-router-dom";
+import {
+  Form,
+  Input,
+  Select,
+  DatePicker,
+  InputNumber,
+  Divider,
+  Button,
+  message,
+} from "antd";
+import { backendUrl } from "../../../config/url";
+
+const { RangePicker } = DatePicker;
 
 const PLAN_OPTIONS = [
   { id: "plan-option-1", name: "假設工程", unit: "式" },
@@ -66,17 +79,62 @@ const INIT_PLAN_STATE = PLAN_OPTIONS.reduce((acc, curr) => {
 }, {});
 
 const GeneralInfo = () => {
+  const router = useHistory();
   const [projectName, setProjectName] = useState("");
   const [supplier, setSupplier] = useState("");
-
+  const [workRange, setWorkRange] = useState();
   const [planDetail, setPlanDetail] = useState(INIT_PLAN_STATE);
-  console.log(planDetail);
+  const [isCreating, setIsCreating] = useState(false);
+  let workDays = 0;
+  if (workRange && workRange.length === 2) {
+    workDays = workRange[1].diff(workRange[0], "days");
+  }
+
+  const handleSubmit = async () => {
+    try {
+      if (!projectName) {
+        return message.error("工程名稱不可為空");
+      }
+      if (!supplier) {
+        return message.error("承攬廠商名稱不可為空");
+      }
+      if (!workDays) {
+        return message.error("工程日期 輸入錯誤");
+      }
+      setIsCreating(true);
+      const res = await fetch(`${backendUrl}/api/project`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          projectName,
+          supplier,
+          startDate: workRange[0].format(),
+          endDate: workRange[1].format(),
+          ...planDetail,
+        }),
+      });
+      await res.json();
+      if (res.ok) {
+        setIsCreating(false);
+        router.push("/");
+      }
+    } catch (err) {
+      message.error(err.message);
+      setIsCreating(false);
+    }
+  };
+  const handleClear = () => {};
   return (
     <>
       <Divider />
       <div style={{ width: "100%" }}>
         <Form.Item label="工程名稱">
-          <Input />
+          <Input
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+          />
         </Form.Item>
         <Form.Item label="承攬廠商名稱">
           <Select value={supplier} onChange={(v) => setSupplier(v)}>
@@ -86,14 +144,12 @@ const GeneralInfo = () => {
           </Select>
         </Form.Item>
         <div style={{ display: "flex", gap: "3rem" }}>
-          <Form.Item label="開工日期">
-            <DatePicker onChange={(v) => console.log(v)} />
+          <Form.Item label="工程日期-開始/結束">
+            <RangePicker value={workRange} onChange={(v) => setWorkRange(v)} />
           </Form.Item>
-          <Form.Item label="完工日期">
-            <DatePicker />
-          </Form.Item>
+
           <Form.Item label="預計天數">
-            <InputNumber />
+            <InputNumber readOnly defaultValue="0" value={workDays} />
           </Form.Item>
         </div>
         <Divider />
@@ -111,6 +167,14 @@ const GeneralInfo = () => {
             />
           </Form.Item>
         ))}
+        <div style={{ display: "flex", justifyContent: "end", gap: "2rem" }}>
+          <Button type="primary" loading={isCreating} onClick={handleSubmit}>
+            新增專案
+          </Button>
+          <Button type="primary" danger onClick={handleClear}>
+            清空
+          </Button>
+        </div>
       </div>
     </>
   );
