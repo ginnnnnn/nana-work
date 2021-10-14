@@ -1,7 +1,6 @@
 import React from "react";
 
 import GeneralInfo from "./components/GeneralInfo";
-import PlanDetail from "./components/PlanDetail";
 import styles from "./project-create.module.css";
 
 //antd

@@ -90,18 +90,18 @@ const GeneralInfo = () => {
   }
 
   const handleSubmit = async () => {
-    if (!projectName) {
-      return message.error("工程名稱不可為空");
-    }
-    if (!supplier) {
-      return message.error("承攬廠商名稱不可為空");
-    }
-    if (!workDays) {
-      return message.error("工程日期 輸入錯誤");
-    }
     try {
+      if (!projectName) {
+        return message.error("工程名稱不可為空");
+      }
+      if (!supplier) {
+        return message.error("承攬廠商名稱不可為空");
+      }
+      if (!workDays) {
+        return message.error("工程日期 輸入錯誤");
+      }
       setIsCreating(true);
-      await fetch("xxx", {
+      const res = await fetch("/api/project", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -114,11 +114,15 @@ const GeneralInfo = () => {
           ...planDetail,
         }),
       });
-      router.push("/");
+      await res.json();
+      if (res.ok) {
+        setIsCreating(false);
+        router.push("/");
+      }
     } catch (err) {
-      console.log(err);
+      message.error(err.message);
+      setIsCreating(false);
     }
-    setIsCreating(false);
   };
   const handleClear = () => {};
   return (
