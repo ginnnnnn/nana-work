@@ -10,6 +10,7 @@ import {
   Button,
   message,
 } from "antd";
+import { backendUrl } from "../../../config/url";
 
 const { RangePicker } = DatePicker;
 
@@ -101,7 +102,7 @@ const GeneralInfo = () => {
         return message.error("工程日期 輸入錯誤");
       }
       setIsCreating(true);
-      const res = await fetch("/api/project", {
+      const res = await fetch(`${backendUrl}/api/project`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
