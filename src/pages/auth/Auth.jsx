@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import styles from "./Auth.module.css";
 
-import { useAuth } from "../../AuthContext";
+import { useAuth } from "/Users/vicky/Documents/yes-mywork/nana-work/src/AuthContext";
 
 const schema = yup
   .object({

@@ -1,4 +1,4 @@
-import "./app.css";
+import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ProjectCreate from "./pages/project-create/ProjectCreate";
 import ProjectsPreview from "./pages/projects-preview/ProjectsPreview";
