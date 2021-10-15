@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5rem;
+  padding: 1rem;
+  border-bottom: 1px solid #e1e4e8;
+  background-color: #d59761;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 0 4rem;
+  z-index: 100;
+}
+
+h2 {
+  margin: auto 0;
+}
+
+.icon {
+  cursor: pointer;
+}
+.user {
+  font-size: 1.4rem;
+}
+/* .arrow {
+  font-size: 1rem;
+  margin-left: 2px;
+}
+
+.dropDown {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 8rem;
+  height: auto;
+  background: white;
+  position: absolute;
+  top: 3.5rem;
+  right: 1.5rem;
+}
+
+.item {
+  width: 100%;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: #6a9968;
+  color: white;
+} */

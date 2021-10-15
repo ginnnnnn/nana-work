@@ -1,5 +1,6 @@
 import React from "react";
-import { Table } from "antd";
+import { NavLink } from "react-router-dom";
+import { Table, Button } from "antd";
 import { Typography } from "antd";
 import styles from "./projects-preview.module.css";
 import { useProjects } from "../../hooks/useProjects";
@@ -44,7 +45,8 @@ const ProjectsPreview = () => {
   const { projects, isLoading } = useProjects();
   return (
     <div className={styles.container}>
-      <Title level={2}>新增工程計畫</Title>
+      <Title level={2}>工程日誌</Title>
+      <NavLink to="/project/create"></NavLink>
       <Table columns={columns} dataSource={projects} />
     </div>
   );

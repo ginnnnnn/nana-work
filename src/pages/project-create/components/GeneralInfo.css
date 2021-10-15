@@ -1,0 +1,18 @@
+.add-btn {
+  background-color: #6a9968;
+  color: white;
+  border-radius: 6px;
+  font-size: 15px;
+  width: 8rem;
+}
+
+.add-btn:hover {
+  color: #6a9968;
+  border: 1px solid #6a9968;
+}
+.clear-btn {
+  background-color: #fd1b1b;
+  color: white;
+  border-radius: 6px;
+  width: 8rem;
+}

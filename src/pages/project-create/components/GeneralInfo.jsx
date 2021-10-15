@@ -11,6 +11,7 @@ import {
   message,
 } from "antd";
 import { backendUrl } from "../../../config/url";
+import "./GeneralInfo.css";
 
 const { RangePicker } = DatePicker;
 
@@ -125,7 +126,12 @@ const GeneralInfo = () => {
       setIsCreating(false);
     }
   };
-  const handleClear = () => {};
+  const handleClear = () => {
+    setProjectName("");
+    setSupplier("");
+    setWorkRange(null);
+    setPlanDetail(INIT_PLAN_STATE);
+  };
   return (
     <>
       <Divider />
@@ -168,10 +174,20 @@ const GeneralInfo = () => {
           </Form.Item>
         ))}
         <div style={{ display: "flex", justifyContent: "end", gap: "2rem" }}>
-          <Button type="primary" loading={isCreating} onClick={handleSubmit}>
+          <Button
+            // type="primary"
+            className="add-btn"
+            loading={isCreating}
+            onClick={handleSubmit}
+          >
             新增專案
           </Button>
-          <Button type="primary" danger onClick={handleClear}>
+          <Button
+            // type="primary"
+            className="clear-btn"
+            danger
+            onClick={handleClear}
+          >
             清空
           </Button>
         </div>

@@ -5,6 +5,7 @@ import * as yup from "yup";
 import styles from "./Auth.module.css";
 
 import { useAuth } from "../../AuthContext";
+import { NavLink } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -39,27 +40,32 @@ const Auth = () => {
             type="email"
             placeholder="請輸入郵箱"
           />
-          <p>{errors.email?.message}</p>
+          {/* <p>{errors.email?.message}</p> */}
           <input
             {...register("password")}
             className={styles.input}
             type="password"
             placeholder="請輸入密碼"
           />
-          <p>{errors.password?.message}</p>
+          {/* <p>{errors.password?.message}</p> */}
           {/* 因為css太醜沒有顯示 <p>{errors.password?.message}</p> */}
-          <btn className={styles.btn} type="submit" onClick={signin}>
+          <NavLink
+            to="/project/create"
+            className={styles.btn}
+            type="submit"
+            onClick={signin}
+          >
             登入
-          </btn>
+          </NavLink>
           <div className={styles.separator}>
             <div className={styles.separatorItem}></div>
             <div className={styles.separatorItem}></div>
             <div className={styles.separatorItem}></div>
           </div>
           <div className={styles.signup}>
-            <p>
+            <h4>
               還沒有帳號？這裡<a>註冊</a>
-            </p>
+            </h4>
           </div>
         </form>
       </div>
